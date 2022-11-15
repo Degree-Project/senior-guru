@@ -1,0 +1,36 @@
+{
+  "name": "senior-guru",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server/index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Degree-Project/senior-guru.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Degree-Project/senior-guru/issues"
+  },
+  "homepage": "https://github.com/Degree-Project/senior-guru#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "concurrently": "^7.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.2",
+    "nodemon": "^2.0.20"
+  }
+}
