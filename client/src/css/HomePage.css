@@ -1,0 +1,31 @@
+.home-page-main {
+  display: flex;
+  background-color: #ffc700;
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(
+    293.01deg,
+    #ffdb5b 0%,
+    #ffc700 14.2%,
+    rgba(255, 219, 91, 0.87) 100.97%
+  );
+}
+
+.svg-wave1 {
+  position: absolute;
+  z-index: 1;
+  height: 100vh;
+}
+.svg-wave2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 50vh;
+}
+.girl {
+  position: absolute;
+  z-index: 2;
+  width: 50%;
+  bottom: 1%;
+  right: 3vw;
+}
