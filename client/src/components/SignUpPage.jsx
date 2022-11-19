@@ -29,7 +29,7 @@ const SignUpPage = () => {
                 <h3 className="signup-title">Your Details</h3>
               </div>
             </div>
-            <form className="d-flex row h-75 w-75 justify-content-between align-items-start m-0 px-5">
+            <form className="d-flex row h-50 w-75 justify-content-between align-items-center m-0 px-5">
               <input
                 type="text"
                 name="firstname"
@@ -87,7 +87,7 @@ const SignUpPage = () => {
         )}
         {step === 2 && (
           <>
-            <div className="d-flex flex-column h-25 w-100 justify-content-end align-items-center">
+            <div className="d-flex flex-column h-25 w-100 justify-content-center align-items-center">
               <h2 className="signup-title">Your Profile</h2>
               <div className="d-flex row justify-content-center m-0 p-0">
                 <h3 className="signup-title font-weight-light">
