@@ -1,7 +1,7 @@
 import "../css/HomePage.css";
 export default function HomePage() {
   return (
-    <div className="home-page-main">
+    <div className="home-page-main d-flex w-100">
       <svg
         className="svg-wave1"
         viewBox="0 0 882 832"
@@ -25,7 +25,6 @@ export default function HomePage() {
           fill="#FFDF6F"
         />
       </svg>
-
       <img
         className="girl"
         src="/assets/images/girl.png"
