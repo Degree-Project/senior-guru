@@ -25,7 +25,7 @@ function NavBar() {
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Get Stated" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Log-In</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Sign-In</NavDropdown.Item>
+              <NavDropdown.Item href="/signup">Sign-In</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
