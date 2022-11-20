@@ -1,7 +1,9 @@
 import "../css/HomePage.css";
+import NavBar from "./NavBar";
 export default function HomePage() {
   return (
     <div className="home-page-main d-flex w-100">
+      <NavBar />
       <svg
         className="svg-wave1"
         viewBox="0 0 882 832"

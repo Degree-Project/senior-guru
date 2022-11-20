@@ -1,0 +1,100 @@
+.login-row {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+.left-col {
+  display: flex;
+  margin: 2.5rem auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.login-text {
+  font-family: "Blinker", sans-serif;
+  color: var(--secondary-color);
+  font-size: 2rem;
+}
+.login-heading {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.login-sub-heading {
+  font-weight: 300;
+  text-align: center;
+  margin: 0.5rem 6rem;
+}
+
+::placeholder {
+  font-family: "Blinker", sans-serif;
+  color: var(--secondary-text-color);
+}
+.login-input {
+  background-color: #f2f2f2;
+  margin: 0.7rem;
+  border: none;
+  padding: 0.7rem 10rem 0.7rem 1rem;
+  border-radius: 0.6rem;
+  color: var(--secondary-text-color);
+}
+.login-submit-row {
+  display: flex;
+  align-items: center;
+}
+.login-submit-row {
+  margin-top: 1rem;
+}
+.login-btn {
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.3rem 1rem;
+  border-radius: 0.5rem;
+  margin-right: 7rem;
+  color: var(--secondary-text-color);
+  transition: 0.3s;
+}
+.login-btn:hover {
+  color: var(--primary-text-color);
+  background-color: var(--primary-color);
+}
+.login-recover-password {
+  color: var(--secondary-text-color);
+  text-decoration: none;
+}
+.login-recover-password:hover {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+.right-col {
+  font-family: "Blinker", sans-serif;
+  color: var(--primary-text-color);
+  background: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem auto;
+}
+.login-fact-heading {
+  margin-top: 2rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
+}
+.fact {
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 1.5rem;
+  line-height: 3rem;
+  text-align: left;
+  width: auto;
+}
+@media (300px <= width <= 780px) {
+  .login-sub-heading {
+    margin: 0rem 0.25rem;
+  }
+  .login-btn {
+    margin-right: 6.5rem;
+  }
+}
