@@ -24,7 +24,7 @@ function NavBar() {
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Get Stated" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Sign-In</NavDropdown.Item>
+              <NavDropdown.Item href="/login">Sign-In</NavDropdown.Item>
               <NavDropdown.Item href="/signup">Sign-Up</NavDropdown.Item>
             </NavDropdown>
           </Nav>
