@@ -31,6 +31,7 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
     });
 
     sendToken(user, 201, res);
+
 });
 
 // Login User
