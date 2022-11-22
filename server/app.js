@@ -8,6 +8,7 @@ const errorMiddleware = require('./middlewares/error.js');
 
 // route imports
 const user = require('./routes/userRoute');
+const service = require('./routes/serviceRoute');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors({ origin: ["https//localhost:3000"], credentials: true }));
 
 // routes
 app.use('/api', user);
+app.use('/api', service);
 
 app.get("/", (req, res) => {
     res.send("I'm Working!!");

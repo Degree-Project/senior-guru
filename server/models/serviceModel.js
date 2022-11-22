@@ -31,17 +31,15 @@ const serviceSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: [true, "Please enter service price"]
+        required: [true, "Please enter service cost"]
     },
     images: [
         {
             public_id: {
-                type: String,
-                required: true
+                type: String
             },
             url: {
-                type: String,
-                required: true
+                type: String
             }
         }
     ],
@@ -86,7 +84,6 @@ const serviceSchema = new mongoose.Schema({
             }
         }
     ],
-
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",

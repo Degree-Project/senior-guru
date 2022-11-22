@@ -41,9 +41,9 @@ class SearchFeatures {
     pagination(resultPerPage) {
         const currentPage = Number(this.queryString.page) || 1;
 
-        const skipProducts = resultPerPage * (currentPage - 1);
+        const skipServices = resultPerPage * (currentPage - 1);
 
-        this.query = this.query.limit(resultPerPage).skip(skipProducts);
+        this.query = this.query.limit(resultPerPage).skip(skipServices);
         return this;
     }
 };
