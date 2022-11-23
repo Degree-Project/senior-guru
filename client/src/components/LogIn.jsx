@@ -1,7 +1,40 @@
 import "../css/Login.css";
 import reactStringReplace from "react-string-replace";
+import React, { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 function ContainerExample() {
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleEmailChange = (e) => {
+    setUserLogin({
+      ...userLogin,
+      email: e.target.value,
+    });
+  };
+
+  const handlePasswordChange = (e) => {
+    setUserLogin({
+      ...userLogin,
+      password: e.target.value,
+    });
+  };
+
+  const onSubmitLogin = () => {
+    try {
+      axios.post(`http://localhost:8000/api/login`, userLogin).then((res) => {
+        console.log("Logged In");
+      });
+    } catch (err) {
+      toast.error(err.response.data.errorMessage);
+      console.log(err.response.data.errorMessage);
+    }
+  };
+
   var facts = [
     "India houses the largest school in the world, in terms of the number of students located in one school. The City Montessori School in Lucknow has more than 32,000 students.",
     "India has the second-largest school system in the world",
@@ -22,30 +55,38 @@ function ContainerExample() {
           <p className="login-sub-heading login-text">
             Welcome back you have been missed!
           </p>
-          <input
-            type="text"
-            className="login-input"
-            name="username"
-            placeholder="Enter Username"
-          />
-          <input
-            type="password"
-            className="login-input"
-            name="password"
-            placeholder="Enter Password"
-          />
-          <div className="row login-submit-row">
-            <div className="col">
-              <input type="submit" value="Login" className="login-btn" />
-            </div>
-            <div className="col">
-              <a href="#" className="login-recover-password">
+          <form action="" className="d-flex row justify-content-center">
+            <input
+              type="text"
+              className="login-input col-lg-8 col-md-10 py-2"
+              name="username"
+              placeholder="Enter Username"
+              onChange={handleEmailChange}
+            />
+            <input
+              type="password"
+              className="login-input col-lg-8 col-md-10 py-2"
+              name="password"
+              placeholder="Enter Password"
+              onChange={handlePasswordChange}
+            />
+            <div className="d-flex row justify-content-between login-submit-row col-lg-9 col-md-10">
+              <input
+                type="submit"
+                value="Login"
+                className="login-btn px-3 py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSubmitLogin();
+                }}
+              />
+              <a href="/resetPassword" className="login-recover-password">
                 Recover Password
               </a>
             </div>
-          </div>
+          </form>
         </div>
-        <div className="right-col col text-center">
+        <div className="right-col col-5 d-lg-block d-none text-center">
           <h1 className="login-fact-heading">Education FACTS !!</h1>
           <p className="fact">
             {reactStringReplace(facts[random], "school", (match, i) => (

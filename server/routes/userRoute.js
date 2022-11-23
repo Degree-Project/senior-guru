@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, loginUser, logoutUser, getUserDetails, updateProfile, getAllUsers, getSingleUser } = require('../controllers/userController');
+const { registerUser, loginUser, logoutUser, getUserDetails, updateProfile, getAllUsers, getSingleUser, isLoggedIn } = require('../controllers/userController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
 const router = express.Router();
@@ -10,6 +10,7 @@ router.route('/test').get((req, res) => {
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
 router.route('/logout').get(logoutUser);
+router.route("/login-status").get(isLoggedIn);
 
 // router.route('/me').get(isAuthenticatedUser, getUserDetails);
 // router.route('/me/update').put(isAuthenticatedUser, updateProfile);
