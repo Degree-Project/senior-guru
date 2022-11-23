@@ -26,13 +26,9 @@ function ContainerExample() {
 
   const onSubmitLogin = () => {
     try {
-      axios
-        .post(`http://localhost:8000/api/login`, userLogin, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          console.log("Logged In");
-        });
+      axios.post(`http://localhost:8000/api/login`, userLogin).then((res) => {
+        console.log("Logged In");
+      });
     } catch (err) {
       toast.error(err.response.data.errorMessage);
       console.log(err.response.data.errorMessage);
