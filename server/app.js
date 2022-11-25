@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 // const path = require('path');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const fileUpload = require('express-fileupload');
-const cors = require('cors');
-const errorMiddleware = require('./middlewares/error.js');
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
+const cors = require("cors");
+const errorMiddleware = require("./middlewares/error.js");
 
 // route imports
-const user = require('./routes/userRoute');
+const user = require("./routes/userRoute");
 
 const app = express();
 
@@ -16,16 +16,17 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors({ origin: ["https//localhost:3000"], credentials: true }));
+app.use(cors());
+app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 
 // routes
-app.use('/api', user);
+app.use("/api", user);
 
 app.get("/", (req, res) => {
-    res.send("I'm Working!!");
-  });
+  res.send("I'm Working!!");
+});
 
-  // error middleware
+// error middleware
 app.use(errorMiddleware);
 
 module.exports = app;

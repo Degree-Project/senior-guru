@@ -3,6 +3,7 @@ import HomePage from "./components/HomePage";
 import ContainerExample from "./components/LogIn";
 import SignUpPage from "./components/SignUpPage";
 import { AuthContextProvider } from "../src/context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -10,6 +11,14 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<ContainerExample />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>

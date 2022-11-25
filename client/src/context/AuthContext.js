@@ -4,11 +4,13 @@ import React, { createContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 function AuthContextProvider(props) {
-  const [loggedIn, setLoggedIn] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   async function getLoggedIn() {
-    const loggedInRes = await axios.get("/api/login-status"); // .catch(console.log("please try again"))
-    setLoggedIn(loggedInRes);
+    const loggedInRes = await axios.get(
+      "http://localhost:8000/api/login-status"
+    ); // .catch(console.log("please try again"))
+    setIsAuthenticated(loggedInRes);
     console.log(loggedInRes);
   }
 
@@ -17,7 +19,7 @@ function AuthContextProvider(props) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loggedIn, getLoggedIn }}>
+    <AuthContext.Provider value={{ isAuthenticated, getLoggedIn }}>
       {props.children}
     </AuthContext.Provider>
   );

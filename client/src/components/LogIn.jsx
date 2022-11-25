@@ -2,7 +2,7 @@ import "../css/Login.css";
 import reactStringReplace from "react-string-replace";
 import React, { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function ContainerExample() {
   const [userLogin, setUserLogin] = useState({
@@ -26,9 +26,13 @@ function ContainerExample() {
 
   const onSubmitLogin = () => {
     try {
-      axios.post(`http://localhost:8000/api/login`, userLogin).then((res) => {
-        console.log("Logged In");
-      });
+      axios
+        .post(`http://localhost:8000/api/login`, userLogin, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log("Logged In");
+        });
     } catch (err) {
       toast.error(err.response.data.errorMessage);
       console.log(err.response.data.errorMessage);
@@ -46,7 +50,6 @@ function ContainerExample() {
   var random = Math.floor(Math.random() * facts.length);
   var words = ["school", "children", "students"];
   var word = words[random] || facts[random].split(" ")[random];
-  console.log("word : " + word);
   return (
     <div className="login-container">
       <div className="login-row row">
