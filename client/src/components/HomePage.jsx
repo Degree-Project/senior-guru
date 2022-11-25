@@ -1,9 +1,28 @@
 import "../css/HomePage.css";
-import NavBar from "./NavBar";
 export default function HomePage() {
   return (
     <div className="home-page-main d-flex w-100">
-      <NavBar />
+      <img className="logo zIndex" src="/assets/images/logo.png" alt="Logo" />
+      <div className="row">
+        <div className="zIndex col home-page-heading">
+          <h4 className="heding-into fs-3 ">HI, WELCOME TO</h4>
+          <h1 className="heading-brand fs-1">SENIOR GURU</h1>
+          <p className="tag-line">
+            “THE BEST WAY TO LEARN IS FROM THOSE WHO <br />
+            HAVE DONE IT BEFORE”
+          </p>
+          <a href="http://localhost:3000/signup">
+            <input
+              className="col-5 btn get-started-btn"
+              type="button"
+              value="Get Started"
+            />
+          </a>
+        </div>
+      </div>
+      <a href="http://localhost:3000/login">
+        <div class="arrow zIndex"></div>
+      </a>
       <svg
         className="svg-wave1"
         viewBox="0 0 882 832"
@@ -15,7 +34,6 @@ export default function HomePage() {
           fill="white"
         />
       </svg>
-
       <svg
         className="svg-wave2"
         viewBox="0 0 1116 449"
@@ -32,6 +50,24 @@ export default function HomePage() {
         src="/assets/images/girl.png"
         alt="Girl illustration"
       />
+      {/* <div className="row home-page-btn-div"> */}
+      <div className="col home-page-btn-div mt-4 ">
+        <a
+          class="btn home-page-login-btn px-4 mr-4"
+          href="http://localhost:3000/login"
+          role="button"
+        >
+          Login
+        </a>
+        <a
+          class="btn home-page-signup-btn px-4"
+          href="http://localhost:3000/signup"
+          role="button"
+        >
+          Sign-up
+        </a>
+      </div>
     </div>
+    // </div>
   );
 }
