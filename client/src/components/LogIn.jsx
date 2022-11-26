@@ -1,10 +1,14 @@
 import "../css/Login.css";
 import reactStringReplace from "react-string-replace";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 function ContainerExample() {
+  const navigate = useNavigate();
+  const { getLoggedIn } = useContext(AuthContext);
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
@@ -26,13 +30,11 @@ function ContainerExample() {
 
   const onSubmitLogin = () => {
     try {
-      axios
-        .post(`http://localhost:8000/api/login`, userLogin, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          console.log("Logged In");
-        });
+      axios.post("/api/login", userLogin).then((res) => {
+        navigate("/profile");
+        console.log("Logged In");
+        getLoggedIn();
+      });
     } catch (err) {
       toast.error(err.response.data.errorMessage);
       console.log(err.response.data.errorMessage);

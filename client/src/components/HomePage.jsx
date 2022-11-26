@@ -1,5 +1,8 @@
+import React from "react";
 import "../css/HomePage.css";
-export default function HomePage() {
+import NavBar from "./NavBar";
+
+export default function HomePage(props) {
   return (
     <div className="home-page-main d-flex w-100">
       <img className="logo zIndex" src="/assets/images/logo.png" alt="Logo" />
@@ -50,22 +53,8 @@ export default function HomePage() {
         src="/assets/images/girl.png"
         alt="Girl illustration"
       />
-      {/* <div className="row home-page-btn-div"> */}
-      <div className="col home-page-btn-div mt-4 ">
-        <a
-          class="btn home-page-login-btn px-4 mr-4"
-          href="http://localhost:3000/login"
-          role="button"
-        >
-          Login
-        </a>
-        <a
-          class="btn home-page-signup-btn px-4"
-          href="http://localhost:3000/signup"
-          role="button"
-        >
-          Sign-up
-        </a>
+      <div className="col home-page-btn-div mt-4">
+        <NavBar userN={props.userN} />
       </div>
     </div>
     // </div>

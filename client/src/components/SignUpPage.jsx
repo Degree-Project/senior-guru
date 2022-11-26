@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "../css/SignUpPage.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [user, setUser] = useState({
     firstName: "",
@@ -91,8 +93,9 @@ const SignUpPage = () => {
     formData.append("location", user.location);
     formData.append("password", user.password);
     try {
-      axios.post("http://localhost:8000/api/register", formData).then((res) => {
-        console.log("Registered Successfull");
+      axios.post("/api/register", formData).then((res) => {
+        toast.success("Registered Successfull");
+        navigate("/profile");
       });
     } catch (err) {
       toast.error(err.response.data.errorMessage);

@@ -73,15 +73,13 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Email or Password", 401));
   }
 
-  // const options = {
-  //   expires: new Date(
-  //     Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-  //   ),
-  //   httpOnly: true,
-  // };
+  const options = {
+    httpOnly: true,
+  };
 
-  // res.cookie("email", user.email, options);
-  // res.cookie("role", user.role, options);
+  res.cookie("email", user.email, options);
+  res.cookie("role", user.role, options);
+  res.cookie("username", user.firstName, options);
 
   sendToken(user, 201, res);
 });
@@ -89,7 +87,6 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 // Logout User
 exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
   res.cookie("token", null, {
-    expires: new Date(Date.now()),
     httpOnly: true,
   });
 

@@ -1,36 +1,35 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import "../css/NavBar.css";
+import "../css/HomePage.css";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
-function NavBar() {
+function NavBar(props) {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
-    <Navbar
-      style={{ zIndex: "6" }}
-      className=" justify-content-center d-flex w-100 position-fixed "
-      expand="lg"
-    >
-      <Container>
-        <Navbar.Brand
-          className="justify-content-center d-flex w-50"
-          href="#home"
-        >
-          Senior Guru
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto justify-content-center d-flex w-50">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Get Stated" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/login">Sign-In</NavDropdown.Item>
-              <NavDropdown.Item href="/signup">Sign-Up</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+      {!isAuthenticated ? (
+        <div>
+          <a
+            class="btn home-page-login-btn px-4 mr-4"
+            href="http://localhost:3000/login"
+            role="button"
+          >
+            Login
+          </a>
+          <a
+            class="btn home-page-signup-btn px-4"
+            href="http://localhost:3000/signup"
+            role="button"
+          >
+            Sign-up
+          </a>
+        </div>
+      ) : (
+        <div>
+          <button class="btn home-page-signup-btn px-4">Logout</button>
+        </div>
+      )}
+    </>
   );
 }
 
