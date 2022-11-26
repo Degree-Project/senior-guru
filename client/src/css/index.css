@@ -3,6 +3,8 @@
   --secondary-text-color: #616161;
   --primary-color: #ffcf25;
   --secondary-color: #ff9e67;
+  --card-bg-color: #fff6d7;
+  --black-text-color: #212121;
 }
 body {
   margin: 0;

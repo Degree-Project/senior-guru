@@ -1,0 +1,105 @@
+.service-page-main-row {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding-top: 12vh;
+}
+.services-page {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: space-around;
+  align-items: center;
+}
+.service-cards-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 18rem;
+  height: 3rem;
+
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  width: 10rem;
+  z-index: 2;
+}
+
+.layer {
+  width: 95%;
+  background-color: var(--primary-color);
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+/* Button 1 */
+#button-1 .knobs:before {
+  content: "TECHNICAL";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 9.8rem;
+  height: 2.5rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1;
+  padding: 12px 8px;
+  background-color: var(--secondary-color);
+  border-radius: 5rem;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+
+#button-1 .checkbox:checked + .knobs:before {
+  content: "NON-TECHNICAL";
+  left: 7rem;
+  background-color: var(--secondary-color);
+}
+
+#button-1 .checkbox:checked ~ .layer {
+  background-color: var(--primary-color);
+}
+
+#button-1 .knobs,
+#button-1 .knobs:before,
+#button-1 .layer {
+  transition: 0.3s ease all;
+}
