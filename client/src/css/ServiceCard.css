@@ -1,0 +1,42 @@
+a,
+a:hover {
+  text-decoration: none;
+  color: var(--black-text-color);
+}
+.service-card {
+  width: 15rem;
+  border: none;
+  background: var(--primary-color);
+}
+.card-img {
+  max-width: 15rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.card-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.card-body {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--card-bg-color);
+}
+.card-profile-img {
+  width: 22.5%;
+  height: 22.5%;
+}
+.card-profile-info {
+  display: flex;
+  width: 8rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.card-profile-info-name {
+  width: max-content;
+}
+.rating-col {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
