@@ -12,12 +12,12 @@ function App() {
     <AuthContextProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Navigate to={"/login"} replace={true} />} />
+          <Route path="/" element={<Navigate to={"/home"} replace={true} />} />
           <Route
-            path="/home"
+            path="/services"
             element={
               <ProtectedRoute>
-                <HomePage />
+                <Services />
               </ProtectedRoute>
             }
           />
@@ -30,7 +30,7 @@ function App() {
             }
           />
           <Route path="/login" element={<ContainerExample />} />
-          <Route path="/services" element={<Services />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
       </div>

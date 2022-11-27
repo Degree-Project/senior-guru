@@ -94,7 +94,7 @@ const SignUpPage = () => {
     try {
       axios.post("/api/register", formData).then((res) => {
         console.log("Registered Successfull");
-        navigate("/profile");
+        navigate("/services");
       });
     } catch (err) {
       console.log(err.response.data.errorMessage);

@@ -53,9 +53,7 @@ export default function HomePage(props) {
         src="/assets/images/girl.png"
         alt="Girl illustration"
       />
-      <div className="col home-page-btn-div mt-4">
-        <NavBar userN={props.userN} />
-      </div>
+      <NavBar userN={props.userN} />
     </div>
     // </div>
   );

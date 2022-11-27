@@ -9,7 +9,7 @@ function NavBar(props) {
   const navigate = useNavigate();
   const handleLogout = () => {
     axios.get("/api/logout").then(() => {
-      navigate("/login");
+      navigate("/home");
       getLoggedIn();
       console.log("Logged Out Successfully");
     });
@@ -18,7 +18,7 @@ function NavBar(props) {
   return (
     <>
       {!isAuthenticated ? (
-        <div>
+        <div className="col home-page-btn-div mt-4">
           <a
             class="btn home-page-login-btn px-4 mr-4"
             href="http://localhost:3000/login"
@@ -35,7 +35,7 @@ function NavBar(props) {
           </a>
         </div>
       ) : (
-        <div>
+        <div className="col home-page-btn-div mt-4">
           <button
             class="btn home-page-signup-btn px-4"
             onClick={() => {
@@ -44,6 +44,13 @@ function NavBar(props) {
           >
             Logout
           </button>
+          <a
+            class="btn home-page-signup-btn px-4"
+            href="/profile"
+            role="button"
+          >
+            Profile
+          </a>
         </div>
       )}
     </>
