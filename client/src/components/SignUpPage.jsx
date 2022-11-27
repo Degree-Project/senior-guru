@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 import "../css/SignUpPage.css";
 import { useNavigate } from "react-router-dom";
 
@@ -94,11 +93,10 @@ const SignUpPage = () => {
     formData.append("password", user.password);
     try {
       axios.post("/api/register", formData).then((res) => {
-        toast.success("Registered Successfull");
+        console.log("Registered Successfull");
         navigate("/profile");
       });
     } catch (err) {
-      toast.error(err.response.data.errorMessage);
       console.log(err.response.data.errorMessage);
     }
   };
@@ -308,7 +306,6 @@ const SignUpPage = () => {
         </form>
       </div>
       <div className="container-bg-FFCF25 p-5 col-4 vh-100"></div>
-      <ToastContainer />
     </div>
   );
 };

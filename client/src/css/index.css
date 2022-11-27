@@ -25,3 +25,11 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+
+.color-FF9E67 {
+  color: #ff9e67;
+}
+
+.fs-32 {
+  font-size: 32px;
+}

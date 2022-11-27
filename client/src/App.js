@@ -5,7 +5,7 @@ import SignUpPage from "./components/SignUpPage";
 import { AuthContextProvider } from "../src/context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./components/Services";
-import { ToastContainer } from "react-toastify";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -14,10 +14,18 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"/login"} replace={true} />} />
           <Route
-            path="/profile"
+            path="/home"
             element={
               <ProtectedRoute>
                 <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
@@ -25,7 +33,6 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
-        <ToastContainer />
       </div>
     </AuthContextProvider>
   );

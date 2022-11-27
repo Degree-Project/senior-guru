@@ -1,9 +1,19 @@
 import "../css/HomePage.css";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function NavBar(props) {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, getLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    axios.get("/api/logout").then(() => {
+      navigate("/login");
+      getLoggedIn();
+      console.log("Logged Out Successfully");
+    });
+  };
 
   return (
     <>
@@ -26,7 +36,14 @@ function NavBar(props) {
         </div>
       ) : (
         <div>
-          <button class="btn home-page-signup-btn px-4">Logout</button>
+          <button
+            class="btn home-page-signup-btn px-4"
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            Logout
+          </button>
         </div>
       )}
     </>

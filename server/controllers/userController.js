@@ -86,7 +86,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 
 // Logout User
 exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
-  res.cookie("token", null, {
+  res.cookie("token", "", {
     httpOnly: true,
   });
 
@@ -100,9 +100,12 @@ exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
 
 exports.isLoggedIn = asyncErrorHandler(async (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) return res.json(false);
-  //   req.user = verified.user;
-  res.send(true);
+  if (token === "") {
+    return res.json(false);
+  }
+  if (token !== "") {
+    return res.json(true);
+  }
 });
 
 // Get User Details
