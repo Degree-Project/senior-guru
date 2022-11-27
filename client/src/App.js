@@ -6,6 +6,8 @@ import { AuthContextProvider } from "../src/context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./components/Services";
 import Profile from "./components/Profile";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
+        <ToastContainer theme="colored" position="top-center" />
       </div>
     </AuthContextProvider>
   );

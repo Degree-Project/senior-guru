@@ -32,11 +32,11 @@ function ContainerExample() {
     try {
       axios.post("/api/login", userLogin).then((res) => {
         navigate("/profile");
-        console.log("Logged In");
+        toast.success("Logged In");
         getLoggedIn();
       });
     } catch (err) {
-      toast.error(err.response.data.errorMessage);
+      toast.warning(err.response.data.errorMessage);
       console.log(err.response.data.errorMessage);
     }
   };
