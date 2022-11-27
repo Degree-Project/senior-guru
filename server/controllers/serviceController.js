@@ -38,7 +38,7 @@ exports.getServices = asyncErrorHandler(async (req, res, next) => {
   const services = await Service.aggregate([
     {
       $geoNear: {
-        near: { type: "Point", coordinates: [longitude, latitude] },
+        near: { type: "Point", coordinates: [latitude, longitude] },
         distanceField: "dist.calculated",
         maxDistance: 1000000,
         spherical: true,
@@ -66,7 +66,22 @@ exports.getServiceDetails = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-// Create Product ---ADMIN
+//Get All services of Logged --GURU
+exports.myServices = asyncErrorHandler(async (req, res, next) => {
+
+  const services = await Services.find({ user: req.user._id });
+
+  if (!services) {
+      return next(new ErrorHandler("Services Not Found", 404));
+  }
+
+  res.status(200).json({
+      success: true,
+      services,
+  });
+});
+
+// Create Service ---GURU
 exports.createService = asyncErrorHandler(async (req, res, next) => {
   // let images = [];
   // if (typeof req.body.images === "string") {
@@ -105,7 +120,7 @@ exports.createService = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-// Delete Product ---ADMIN
+// Delete Service ---GURU
 exports.deleteService = asyncErrorHandler(async (req, res, next) => {
   const service = await Service.findById(req.params.id);
 

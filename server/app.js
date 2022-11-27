@@ -9,6 +9,7 @@ const errorMiddleware = require("./middlewares/error.js");
 // route imports
 const user = require("./routes/userRoute");
 const service = require("./routes/serviceRoute");
+const reservation  = require("./routes/reservationRoute");
 
 const app = express();
 
@@ -18,11 +19,12 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 app.use(cors());
-app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+app.use(cors({ origin: ["https://localhost:3000"], credentials: true }));
 
 // routes
 app.use("/api", user);
 app.use("/api", service);
+app.use("/api", reservation);
 
 app.get("/", (req, res) => {
   res.send("I'm Working!!");
