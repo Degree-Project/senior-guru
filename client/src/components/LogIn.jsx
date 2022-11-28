@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
-function ContainerExample(props) {
+function ContainerExample() {
   const navigate = useNavigate();
   const { getLoggedIn } = useContext(AuthContext);
   const [userLogin, setUserLogin] = useState({
@@ -33,10 +33,8 @@ function ContainerExample(props) {
       axios.post("/api/login", userLogin).then((res) => {
         if (res.data.user.role === "guru") {
           navigate(`/profile`);
-          props.setUserDetails(res.data.user);
         } else {
           navigate("/services");
-          props.setUserDetails(res.data.user);
         }
         toast.success("Logged In");
         getLoggedIn();

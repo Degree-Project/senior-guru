@@ -8,10 +8,11 @@ import BookingCards from "./TabComponent/BookingCards";
 import axios from "axios";
 import ServiceCards from "./TabComponent/ServiceCards";
 
-const Profile = (props) => {
+const Profile = () => {
   let history = useNavigate();
   const [value, setValue] = useState(0);
   const [services, setServices] = useState();
+  const [userDetails, setUserDetails] = useState([]);
 
   function a11yProps(index) {
     return {
@@ -25,9 +26,15 @@ const Profile = (props) => {
       setServices(res.data.services);
     });
   };
+  const getUser = () => {
+    axios.get("/api/me").then((res) => {
+      setUserDetails(res.data.user);
+    });
+  };
 
   useEffect(() => {
-    if (props.userDetails !== "") {
+    getUser();
+    if (userDetails !== "") {
       getServices();
     }
   });
@@ -62,11 +69,7 @@ const Profile = (props) => {
       </div>
       <div className="d-flex px-5 row m-0 p-0" style={{ zIndex: "111111" }}>
         <img
-          src={
-            props.userDetails.avatar.url
-              ? props.userDetails.avatar.url
-              : "/assets/images/profile/guru.png"
-          }
+          src="/assets/images/profile/guru.png"
           height={230}
           width={230}
           style={{
@@ -75,21 +78,19 @@ const Profile = (props) => {
             border: "20px solid #FFCF25",
             objectFit: "cover",
           }}
-          className="col-"
           alt=""
         />
         <div className="col pt-5">
           <div className="d-flex flex-column">
             <div className="d-flex row justify-content-start align-items-end p-0 m-0">
-              <h1 className="p-0 m-0">{`${props.userDetails.firstName} ${props.userDetails.lastName}`}</h1>
+              <h1 className="p-0 m-0">{`${userDetails.firstName} ${userDetails.lastName}`}</h1>
               <p className="p-0 pl-3 pb-1 m-0">
                 <i class="fa-solid fa-star px-1" style={{ color: "gold" }} />{" "}
                 4.5
               </p>
             </div>
             <p className="p-0 pl-1 m-0" style={{ color: "#7b7b7b" }}>
-              {props.userDetails.location}{" "}
-              <i class="fas fa-location-dot pl-2" />
+              {userDetails.location} <i class="fas fa-location-dot pl-2" />
             </p>
           </div>
           <textarea
@@ -115,7 +116,7 @@ const Profile = (props) => {
             indicatorColor="secondary"
             aria-label="secondary tabs example"
           >
-            {props.userDetails.role === "guru" ? (
+            {userDetails.role === "guru" ? (
               <Tab label="Certificates" {...a11yProps(0)} />
             ) : (
               <Tab label="Contacts" {...a11yProps(0)} />
@@ -123,7 +124,7 @@ const Profile = (props) => {
             <Tab label="Services" {...a11yProps(1)} />
             <Tab label="Bookings" {...a11yProps(2)} />
           </Tabs>
-          {props.userDetails.role === "guru" ? (
+          {userDetails.role === "guru" ? (
             <TabPanel value={value} index={0}>
               <div className="d-flex row justify-content-space-around pt-4 px-4">
                 <Cards

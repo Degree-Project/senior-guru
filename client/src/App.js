@@ -1,3 +1,4 @@
+import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import ContainerExample from "./components/LogIn";
@@ -8,11 +9,8 @@ import Services from "./components/Services";
 import Profile from "./components/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React, { useState } from "react";
 
 function App() {
-  const [userDetails, setUserDetails] = useState({});
-
   return (
     <AuthContextProvider>
       <div className="App">
@@ -30,14 +28,11 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile userDetails={userDetails} />
+                <Profile />
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/login"
-            element={<ContainerExample setUserDetails={setUserDetails} />}
-          />
+          <Route path="/login" element={<ContainerExample />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
