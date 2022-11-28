@@ -1,4 +1,4 @@
-import { Container, Row, Col, Image, Card } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 export default function GuruCard() {
   var style = {
     background: "var(--primary-color)",
@@ -9,6 +9,7 @@ export default function GuruCard() {
         <Row className="align-items-center">
           <Col className="col-3">
             <Image
+              className="rounded-circle"
               style={{ width: "3rem" }}
               src="/assets/images/profile/guru.png"
             />
