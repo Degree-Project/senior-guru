@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
-function ContainerExample() {
+function ContainerExample(props) {
   const navigate = useNavigate();
   const { getLoggedIn } = useContext(AuthContext);
   const [userLogin, setUserLogin] = useState({
@@ -31,7 +31,13 @@ function ContainerExample() {
   const onSubmitLogin = () => {
     try {
       axios.post("/api/login", userLogin).then((res) => {
-        navigate("/profile");
+        if (res.data.user.role === "guru") {
+          navigate(`/profile`);
+          props.setUserDetails(res.data.user);
+        } else {
+          navigate("/services");
+          props.setUserDetails(res.data.user);
+        }
         toast.success("Logged In");
         getLoggedIn();
       });
@@ -80,6 +86,7 @@ function ContainerExample() {
                 type="submit"
                 value="Login"
                 className="login-btn px-3 py-2"
+                style={{ color: "white" }}
                 onClick={(e) => {
                   e.preventDefault();
                   onSubmitLogin();

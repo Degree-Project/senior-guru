@@ -17,7 +17,7 @@ function NavBar(props) {
 
   return (
     <>
-      {!isAuthenticated ? (
+      {isAuthenticated === false ? (
         <div className="col home-page-btn-div mt-4">
           <a
             class="btn home-page-login-btn px-4 mr-4"
@@ -37,7 +37,7 @@ function NavBar(props) {
       ) : (
         <div className="col home-page-btn-div mt-4">
           <button
-            class="btn home-page-signup-btn px-4"
+            class="btn home-page-signup-btn px-4 mr-3"
             onClick={() => {
               handleLogout();
             }}

@@ -3,9 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions, Button } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 
-export default function BookingCards(props) {
+export default function ServiceCards(props) {
   return (
     <Card sx={{ maxWidth: 345 }} variant="outlined" className="mb-4 p-2 m-1">
       <CardActionArea>
@@ -24,11 +24,6 @@ export default function BookingCards(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Book Now
-        </Button>
-      </CardActions>
     </Card>
   );
 }

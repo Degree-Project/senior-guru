@@ -8,8 +8,11 @@ import Services from "./components/Services";
 import Profile from "./components/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 
 function App() {
+  const [userDetails, setUserDetails] = useState({});
+
   return (
     <AuthContextProvider>
       <div className="App">
@@ -27,15 +30,18 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile />
+                <Profile userDetails={userDetails} />
               </ProtectedRoute>
             }
           />
-          <Route path="/login" element={<ContainerExample />} />
+          <Route
+            path="/login"
+            element={<ContainerExample setUserDetails={setUserDetails} />}
+          />
           <Route path="/home" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
-        <ToastContainer theme="colored" position="top-center" />
+        <ToastContainer theme="colored" />
       </div>
     </AuthContextProvider>
   );
