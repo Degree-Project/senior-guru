@@ -10,6 +10,8 @@ const errorMiddleware = require("./middlewares/error.js");
 const user = require("./routes/userRoute");
 const service = require("./routes/serviceRoute");
 const reservation = require("./routes/reservationRoute");
+const certificate = require("./routes/certificateRoute");
+
 
 const app = express();
 
@@ -25,6 +27,7 @@ app.use(cors({ origin: ["https://localhost:3000"], credentials: true }));
 app.use("/api", user);
 app.use("/api", service);
 app.use("/api", reservation);
+app.use("/api", certificate);
 
 app.get("/", (req, res) => {
   res.send("I'm Working!!");
