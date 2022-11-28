@@ -5,6 +5,7 @@ import SignUpPage from "./components/SignUpPage";
 import { AuthContextProvider } from "../src/context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./components/Services";
+import Service from "./components/Service";
 import Profile from "./components/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" element={<ContainerExample />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/service" element={<Service />} />
         </Routes>
         <ToastContainer theme="colored" position="top-center" />
       </div>
