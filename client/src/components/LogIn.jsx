@@ -63,14 +63,14 @@ function ContainerExample() {
           <form action="" className="d-flex row justify-content-center">
             <input
               type="text"
-              className="login-input col-lg-8 col-md-10 py-2"
+              className="login-input form-control col-lg-8 col-md-10 py-2"
               name="username"
               placeholder="Enter Username"
               onChange={handleEmailChange}
             />
             <input
               type="password"
-              className="login-input col-lg-8 col-md-10 py-2"
+              className="login-input form-control col-lg-8 col-md-10 py-2"
               name="password"
               placeholder="Enter Password"
               onChange={handlePasswordChange}
