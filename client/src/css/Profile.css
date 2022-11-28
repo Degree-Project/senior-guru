@@ -1,5 +1,19 @@
-.service-bg {
-  position: relative;
-  height: 178px;
-  background: #f1f1f1;
+.tab:focus {
+  outline: none;
+}
+.add-btn:focus {
+  border: none;
+  box-shadow: 0 0 0 0.2rem rgba(255, 136, 0, 0.25);
+}
+.add-btn:hover {
+  box-shadow: 0 0 0 0.2rem rgba(255, 213, 0, 0.25);
+}
+.MuiTab-textColorPrimary {
+  color: black;
+}
+.Mui-selected {
+  color: var(--secondary-color) !important;
+}
+.css-1aquho2-MuiTabs-indicator {
+  background-color: var(--secondary-color) !important;
 }
