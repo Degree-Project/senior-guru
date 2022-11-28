@@ -7,7 +7,7 @@ import { CardActionArea, CardActions, Button } from "@mui/material";
 
 export default function BookingCards(props) {
   return (
-    <Card sx={{ maxWidth: 345 }} variant="outlined">
+    <Card sx={{ maxWidth: 345 }} variant="outlined" className="col-3 p-2 m-2">
       <CardActionArea>
         <CardMedia
           component="img"

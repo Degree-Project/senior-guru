@@ -5,10 +5,12 @@ import Cards from "./TabComponent/Cards";
 import "../css/Profile.css";
 import { useNavigate } from "react-router-dom";
 import BookingCards from "./TabComponent/BookingCards";
+import AddCertificateModal from "./TabComponent/AddCertificateModal";
 
 const Profile = () => {
   let history = useNavigate();
   const [value, setValue] = useState(0);
+  const [modalShow, setModalShow] = useState(false);
 
   function a11yProps(index) {
     return {
@@ -81,7 +83,6 @@ const Profile = () => {
           {/* Guru Name */}
         </div>
       </div>
-
       {/* Tabs */}
       <div className="w-100 px-4 p-3 m-0">
         <Box sx={{ width: "100%" }}>
@@ -97,7 +98,26 @@ const Profile = () => {
             <Tab label="Bookings" {...a11yProps(2)} />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <div className="d-flex row justify-content-between pt-4 px-4">
+            <div className="d-flex row justify-content-space-around pt-4 px-4">
+              <div className="w-100 d-flex position-relative">
+                <input
+                  style={{
+                    color: "var(--primary-text-color)",
+                  }}
+                  type="button"
+                  className="form-control w-25 mb-4 login-btn"
+                  value="Add Services"
+                  onClick={() => setModalShow(true)}
+                />
+                <AddCertificateModal
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                />
+              </div>
+              <Cards
+                head="PHD in Data Science"
+                content="Well meaning and kindly. A benevolent smile"
+              />
               <Cards
                 head="PHD in Data Science"
                 content="Well meaning and kindly. A benevolent smile"
@@ -113,10 +133,30 @@ const Profile = () => {
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <div className="px-4 service-bg w-100 mt-4"></div>
+            <div className="px-4 service-bg w-100 mt-4">
+              <div className="w-100 d-flex position-relative">
+                <input
+                  style={{
+                    color: "var(--primary-text-color)",
+                  }}
+                  type="button"
+                  className="form-control w-25 mb-4 login-btn"
+                  value="Add Services"
+                  onClick={() => setModalShow(true)}
+                />
+                <AddCertificateModal
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                />
+              </div>
+            </div>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <div className="d-flex row justify-content-between pt-4 px-4">
+            <div className="d-flex row justify-content-evenly pt-4 px-4">
+              <BookingCards
+                head="PHD in Data Science"
+                content="Well meaning and kindly. A benevolent smile"
+              />
               <BookingCards
                 head="PHD in Data Science"
                 content="Well meaning and kindly. A benevolent smile"

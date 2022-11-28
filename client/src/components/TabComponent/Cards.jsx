@@ -7,7 +7,7 @@ import { CardActionArea } from "@mui/material";
 
 export default function Cards(props) {
   return (
-    <Card sx={{ maxWidth: 345 }} variant="outlined">
+    <Card sx={{ maxWidth: 345 }} variant="outlined" className="p-2 m-1">
       <CardActionArea>
         <CardMedia
           component="img"
