@@ -5,12 +5,16 @@ import Cards from "./TabComponent/Cards";
 import "../css/Profile.css";
 import { useNavigate } from "react-router-dom";
 import BookingCards from "./TabComponent/BookingCards";
+import AddCertificateModal from "./TabComponent/AddCertificateModal";
+import AddServiceModal from "./TabComponent/AddServiceModal";
 import axios from "axios";
 import ServiceCards from "./TabComponent/ServiceCards";
 
 const Profile = () => {
   let history = useNavigate();
   const [value, setValue] = useState(0);
+  const [addCertificateModalShow, setAddCertificateModalShow] = useState(false);
+  const [addServicesModalShow, setAddServicesModalShow] = useState(false);
   const [services, setServices] = useState();
   const [userDetails, setUserDetails] = useState([]);
 
@@ -55,7 +59,7 @@ const Profile = () => {
         />
         <div
           className="color-FF9E67 d-flex col-1 align-items-center position-relative pt-1 px-3 fs-32"
-          style={{ zIndex: "111111", cursor: "pointer" }}
+          style={{ zIndex: "10", cursor: "pointer" }}
           onClick={() => history(-1)}
         >
           <img
@@ -67,13 +71,13 @@ const Profile = () => {
           Back
         </div>
       </div>
-      <div className="d-flex px-5 row m-0 p-0" style={{ zIndex: "111111" }}>
+      <div className="d-flex px-5 row m-0 p-0" style={{ zIndex: "10" }}>
         <img
           src="/assets/images/profile/guru.png"
           height={230}
           width={230}
           style={{
-            zIndex: "111111",
+            zIndex: "10",
             borderRadius: "50%",
             border: "20px solid #FFCF25",
             objectFit: "cover",
@@ -112,8 +116,8 @@ const Profile = () => {
           <Tabs
             value={value}
             onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
+            // textColor="secondary"
+            // indicatorColor="secondary"
             aria-label="secondary tabs example"
           >
             {userDetails.role === "guru" ? (
@@ -127,6 +131,21 @@ const Profile = () => {
           {userDetails.role === "guru" ? (
             <TabPanel value={value} index={0}>
               <div className="d-flex row justify-content-space-around pt-4 px-4">
+                <div className="w-100 d-flex position-relative">
+                  <input
+                    style={{
+                      color: "var(--primary-text-color)",
+                    }}
+                    type="button"
+                    className="form-control col-md-3 mb-4 login-btn add-btn"
+                    value="Add Certificates"
+                    onClick={() => setAddCertificateModalShow(true)}
+                  />
+                  <AddCertificateModal
+                    show={addCertificateModalShow}
+                    onHide={() => setAddCertificateModalShow(false)}
+                  />
+                </div>
                 <Cards
                   head="PHD in Data Science"
                   content="Well meaning and kindly. A benevolent smile"
@@ -161,6 +180,17 @@ const Profile = () => {
           )}
           <TabPanel value={value} index={1}>
             <div className="d-flex row justify-content-space-around pt-4 px-4">
+              <div className="w-100 d-flex position-relative">
+                <input
+                  style={{
+                    color: "var(--primary-text-color)",
+                  }}
+                  type="button"
+                  className="form-control col-md-3 mb-4 login-btn add-btn"
+                  value="Add Services"
+                  onClick={() => setAddServicesModalShow(true)}
+                />
+              </div>
               {services &&
                 services.map((item) => {
                   return (
@@ -187,6 +217,10 @@ const Profile = () => {
           </TabPanel>
         </Box>
       </div>
+      <AddServiceModal
+        show={addServicesModalShow}
+        onHide={() => setAddServicesModalShow(false)}
+      />
     </div>
   );
 };
