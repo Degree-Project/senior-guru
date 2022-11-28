@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import ContainerExample from "./components/LogIn";
@@ -8,9 +8,23 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./components/Services";
 import Profile from "./components/Profile";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState([]);
+
+  const getUser = () => {
+    axios.get("/api/me").then((res) => {
+      setUserDetails(res.data.user);
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+  });
+
   return (
     <AuthContextProvider>
       <div className="App">
@@ -20,7 +34,11 @@ function App() {
             path="/services"
             element={
               <ProtectedRoute>
-                <Services />
+                <Services
+                  userDetails={userDetails}
+                  setIsOpen={setIsOpen}
+                  isOpen={isOpen}
+                />
               </ProtectedRoute>
             }
           />
@@ -33,7 +51,16 @@ function App() {
             }
           />
           <Route path="/login" element={<ContainerExample />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route
+            path="/home"
+            element={
+              <HomePage
+                userDetails={userDetails}
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+              />
+            }
+          />
           <Route path="/signup" element={<SignUpPage />} />
         </Routes>
         <ToastContainer theme="colored" />

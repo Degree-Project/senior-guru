@@ -1,10 +1,17 @@
+import React from "react";
 import ServiceCard from "./ServiceCard";
 import NavBar from "./NavBar";
 import "../css/Services.css";
-export default function Services() {
+import LogoutModal from "./Modals/LogoutModal";
+
+const Services = (props) => {
   return (
     <>
-      <NavBar />
+      <NavBar
+        userDetails={props.userDetails}
+        setIsOpen={props.setIsOpen}
+        isOpen={props.isOpen}
+      />
       <div className="row service-page-main-row">
         <div className="service-page-main-div">
           <div className="services-page">
@@ -53,8 +60,11 @@ export default function Services() {
             </div>
           </div>
         </div>
+        <LogoutModal isOpen={props.isOpen} setIsOpen={props.setIsOpen} />
       </div>
     </>
     // </div>
   );
-}
+};
+
+export default Services;

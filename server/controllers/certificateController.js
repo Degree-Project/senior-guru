@@ -3,7 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
 const Certificate = require("../models/certificateModel");
 const path = require("path");
-const fs = require('fs');
+const fs = require("fs");
 
 //Get certificates --GURU
 exports.myCertificates = asyncErrorHandler(async (req, res, next) => {
@@ -20,7 +20,7 @@ exports.myCertificates = asyncErrorHandler(async (req, res, next) => {
 
 // Upload Certificate --GURU
 exports.uploadCertificate = asyncErrorHandler(async (req, res, next) => {
-    const file = req.files.certificate;
+  const file = req.files.avatar;
   var fileName = file.name;
   const certificateFilePath = path.join(__dirname, fileName);
 
@@ -32,19 +32,17 @@ exports.uploadCertificate = asyncErrorHandler(async (req, res, next) => {
   });
 
   const myCloud = await cloudinary.v2.uploader.upload(certificateFilePath, {
-    folder: "certificates"
+    folder: "certificates",
   });
 
-  fs.unlink(__dirname +"/"+ fileName, (err) => {
+  fs.unlink(__dirname + "/" + fileName, (err) => {
     if (err) {
       throw err;
     }
     console.log("Temporary file successfuly deleted");
   });
 
-  const {
-    title
-  } = req.body;
+  const { title } = req.body;
 
   const certificate = await Certificate.create({
     title,
@@ -54,26 +52,25 @@ exports.uploadCertificate = asyncErrorHandler(async (req, res, next) => {
       url: myCloud.secure_url,
     },
   });
-  
-    res.status(200).json({
-      success: true,
-      certificate,
-    });
+
+  res.status(200).json({
+    success: true,
+    certificate,
   });
+});
 
 // Delete Certificate ---GURU
 exports.deleteCertificate = asyncErrorHandler(async (req, res, next) => {
-    const certificate = await Certificate.findById(req.params.id);
-  
-    if (!certificate) {
-      return next(new ErrorHandler("Certificate Not Found", 404));
-    }
-  
-  
-    await certificate.remove();
-  
-    res.status(201).json({
-      success: true,
-      certificate
-    });
+  const certificate = await Certificate.findById(req.params.id);
+
+  if (!certificate) {
+    return next(new ErrorHandler("Certificate Not Found", 404));
+  }
+
+  await certificate.remove();
+
+  res.status(201).json({
+    success: true,
+    certificate,
   });
+});

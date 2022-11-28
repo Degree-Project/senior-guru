@@ -16,6 +16,7 @@ const Profile = () => {
   const [addCertificateModalShow, setAddCertificateModalShow] = useState(false);
   const [addServicesModalShow, setAddServicesModalShow] = useState(false);
   const [services, setServices] = useState();
+  const [certificates, setCertificate] = useState();
   const [userDetails, setUserDetails] = useState([]);
 
   function a11yProps(index) {
@@ -30,6 +31,13 @@ const Profile = () => {
       setServices(res.data.services);
     });
   };
+
+  const getMyCertificates = () => {
+    axios.get("/api/guru/certificate/all").then((res) => {
+      setCertificate(res.data.certificates);
+    });
+  };
+
   const getUser = () => {
     axios.get("/api/me").then((res) => {
       setUserDetails(res.data.user);
@@ -40,6 +48,7 @@ const Profile = () => {
     getUser();
     if (userDetails !== "") {
       getServices();
+      getMyCertificates();
     }
   });
 
@@ -125,8 +134,14 @@ const Profile = () => {
             ) : (
               <Tab label="Contacts" {...a11yProps(0)} />
             )}
-            <Tab label="Services" {...a11yProps(1)} />
-            <Tab label="Bookings" {...a11yProps(2)} />
+            {userDetails.role === "guru" ? (
+              <Tab label="Services" {...a11yProps(1)} />
+            ) : (
+              <Tab label="Enrollment Course" {...a11yProps(0)} />
+            )}
+            {userDetails.role === "guru" && (
+              <Tab label="Bookings" {...a11yProps(2)} />
+            )}
           </Tabs>
           {userDetails.role === "guru" ? (
             <TabPanel value={value} index={0}>
@@ -146,18 +161,10 @@ const Profile = () => {
                     onHide={() => setAddCertificateModalShow(false)}
                   />
                 </div>
-                <Cards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
-                <Cards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
-                <Cards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
+                {certificates &&
+                  certificates.map((item) => {
+                    return <Cards head={item.title} />;
+                  })}
               </div>
             </TabPanel>
           ) : (
@@ -199,22 +206,24 @@ const Profile = () => {
                 })}
             </div>
           </TabPanel>
-          <TabPanel value={value} index={2}>
-            <div className="d-flex row justify-content-space-around pt-4 px-4">
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-            </div>
-          </TabPanel>
+          {userDetails.role === "guru" && (
+            <TabPanel value={value} index={2}>
+              <div className="d-flex row justify-content-space-around pt-4 px-4">
+                <BookingCards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+                <BookingCards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+                <BookingCards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+              </div>
+            </TabPanel>
+          )}
         </Box>
       </div>
       <AddServiceModal

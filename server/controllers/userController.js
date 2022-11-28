@@ -4,7 +4,7 @@ const sendToken = require("../utils/sendToken");
 const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
 const path = require("path");
-const fs = require('fs');
+const fs = require("fs");
 
 // Register User
 exports.registerUser = asyncErrorHandler(async (req, res, next) => {
@@ -27,7 +27,7 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
     gravity: "faces",
   });
 
-  fs.unlink(__dirname +"/"+ fileName, (err) => {
+  fs.unlink(__dirname + "/" + fileName, (err) => {
     if (err) {
       throw err;
     }
