@@ -40,7 +40,7 @@ const Profile = () => {
         <div className="col pt-5">
           <div className="d-flex justify-content-start align-items-end">
             <h1 className="p-0 m-0">Guru Name</h1>
-            <h6 className="pl-3" style={{ color }}>
+            <h6 className="pl-3" >
               Location <i class="fas fa-location-dot"></i>
             </h6>
           </div>

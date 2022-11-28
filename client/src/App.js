@@ -6,6 +6,7 @@ import { AuthContextProvider } from "../src/context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./components/Services";
 import Profile from "./components/Profile";
+import BookingForm from "./components/Booking/Booking";
 
 function App() {
   return (
@@ -29,6 +30,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/booking"
+            element={
+              <ProtectedRoute>
+                <BookingForm />
+              </ProtectedRoute>
+            }
+          />
+          
           <Route path="/login" element={<ContainerExample />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
