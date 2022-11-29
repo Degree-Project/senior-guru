@@ -46,7 +46,7 @@ function NavBar(props) {
             {props.isOpen && (
               <div
                 className="fullPageOverlay"
-                onClick={() => props.setIsOpen(false)}
+                onClick={() => props.setIsOpen(!props.isOpen)}
               ></div>
             )}
           </div>

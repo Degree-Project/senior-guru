@@ -3,43 +3,35 @@ import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function AddServiceModal(props) {
+export default function AddBookingModal(props) {
   const [newService, setNewService] = useState({
-    name: "",
-    description: "",
-    location: {
-      coordinates: {
-        latitude: "",
-        longitude: "",
-      },
+    reservationItem: {
+      name: "",
+      service: "",
+      guru: "",
     },
-    price: "",
-    category: {},
+    contact: "",
+    totalCost: "",
   });
 
   const handleServiceName = (e) => {
-    setNewService({ ...newService, name: e.target.value });
+    setNewService({ ...newService, reservationItem: { name: e.target.value } });
   };
   const handleServiceDesc = (e) => {
-    setNewService({ ...newService, description: e.target.value });
+    setNewService({
+      ...newService,
+      reservationItem: { service: props.service },
+    });
   };
   const handleServicePrice = (e) => {
-    setNewService({ ...newService, price: e.target.value });
+    setNewService({ ...newService, totalCost: e.target.value });
   };
   const handleServiceLocation = (e) => {
-    setNewService({ ...newService, location: props.lat });
-  };
-  const handleServiceCategory = (e) => {
-    setNewService({ ...newService, category: e.target.value });
+    setNewService({ ...newService, contact: e.target.value });
   };
 
   const onSubmitServices = () => {
     const formData = new FormData();
-    formData.append("name", newService.name);
-    formData.append("description", newService.name);
-    formData.append("location", newService.location);
-    formData.append("serviceType", newService.cateogory);
-    formData.append("price", newService.price);
 
     try {
       axios.post("/api/admin/service/new", formData).then((res) => {
@@ -55,7 +47,7 @@ export default function AddServiceModal(props) {
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add Services
+          Add Booking
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -70,7 +62,7 @@ export default function AddServiceModal(props) {
             />
           </Col>
           <Col>
-            <Form.Label>Location</Form.Label>
+            <Form.Label>Contact</Form.Label>
             <Form.Control
               className="mb-3"
               type="text"
@@ -79,7 +71,7 @@ export default function AddServiceModal(props) {
             />
           </Col>
         </Row>
-        <Form.Label>Service Description</Form.Label>
+        <Form.Label>Description</Form.Label>
         <Form.Control
           className="mb-3"
           as="textarea"
@@ -95,10 +87,10 @@ export default function AddServiceModal(props) {
               onChange={handleServiceCategory}
             >
               <option disabled selected>
-                Select service type
+                Select Mode
               </option>
-              <option value="Technical">Technical</option>
-              <option value="Non-Technical">Non-Technical</option>
+              <option value="Online">Online</option>
+              <option value="Offline">Offline</option>
             </Form.Select>
           </Col>
           <Col>
@@ -107,22 +99,18 @@ export default function AddServiceModal(props) {
               className="mb-3"
               type="text"
               placeholder="Enter Service Cost"
+              disabled
+              value={props.cost}
               onChange={handleServicePrice}
             />
           </Col>
         </Row>
-        <Form.Label>Upload Service Image</Form.Label>
-        <Form.Control
-          style={{ padding: "0.2rem" }}
-          className="mb-3"
-          type="file"
-        />
       </Modal.Body>
       <Modal.Footer>
         <Button
           onClick={() => {
             props.onHide();
-            onSubmitServices();
+            onSubmitReservation();
           }}
         >
           Add

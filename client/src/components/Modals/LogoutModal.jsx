@@ -26,6 +26,7 @@ const LogoutModal = (props) => {
               class="btn px-4 mr-3 w-100 mb-2 border-0 home-page-login-btn color-white"
               onClick={() => {
                 handleLogout();
+                props.setIsOpen(!props.isOpen);
               }}
             >
               Logout

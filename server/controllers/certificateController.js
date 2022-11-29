@@ -20,7 +20,7 @@ exports.myCertificates = asyncErrorHandler(async (req, res, next) => {
 
 // Upload Certificate --GURU
 exports.uploadCertificate = asyncErrorHandler(async (req, res, next) => {
-  const file = req.files.avatar;
+  const file = req.files.certificate;
   var fileName = file.name;
   const certificateFilePath = path.join(__dirname, fileName);
 
