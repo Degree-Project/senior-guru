@@ -30,7 +30,7 @@ export default function Services() {
               <input
                 type="checkbox"
                 class="checkbox"
-                onClick={() => setType(false)}
+                onClick={() => setType(!type)}
               />
               <div class="knobs"></div>
               <div class="layer"></div>
