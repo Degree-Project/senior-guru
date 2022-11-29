@@ -20,7 +20,7 @@ export default function AddCertificateModal(props) {
   const onSubmitCertificate = () => {
     const formData = new FormData();
     formData.append("title", getCertificate.title);
-    formData.append("certificate", getCertificate.files);
+    formData.append("avatar", getCertificate.files);
     formData.append("createdAt", getCertificate.cretedAt);
     try {
       axios.post("/api/guru/certificate/new", formData).then((res) => {
