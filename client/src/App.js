@@ -6,11 +6,11 @@ import SignUpPage from "./components/SignUpPage";
 import { AuthContextProvider } from "../src/context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Services from "./components/Services";
-import Service from "./components/Service";
 import Profile from "./components/Profile";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [userDetails, setUserDetails] = useState([]);
@@ -62,7 +62,6 @@ function App() {
             }
           />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/service" element={<Service />} />
         </Routes>
         <ToastContainer theme="colored" />
       </div>

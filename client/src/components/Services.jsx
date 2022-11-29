@@ -1,24 +1,10 @@
-import { useContext, useState, useEffect } from "react";
+import React from "react";
 import ServiceCard from "./ServiceCard";
 import NavBar from "./NavBar";
 import "../css/Services.css";
-import AuthContext from "../context/AuthContext";
+import LogoutModal from "./Modals/LogoutModal";
 
-export default function Services() {
-  const [type, setType] = useState(true);
-  const { locData } = useContext(AuthContext);
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-
-  const setData = () => {
-    setLat(locData.latitude);
-    setLng(locData.longitude);
-  };
-  console.log("Lat : " + lat);
-  console.log("Lng : " + lng);
-  useEffect(() => {
-    setData();
-  }, [locData]);
+const Services = (props) => {
   return (
     <>
       <NavBar
@@ -30,11 +16,7 @@ export default function Services() {
         <div className="service-page-main-div">
           <div className="services-page">
             <div class="button r" id="button-1">
-              <input
-                type="checkbox"
-                class="checkbox"
-                onClick={() => setType(!type)}
-              />
+              <input type="checkbox" class="checkbox" />
               <div class="knobs"></div>
               <div class="layer"></div>
             </div>
