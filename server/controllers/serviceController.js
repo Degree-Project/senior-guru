@@ -2,6 +2,8 @@ const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const SearchFeatures = require("../utils/searchFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
+const path = require("path");
+const fs = require("fs");
 const Service = require("../models/serviceModel");
 
 // Get All Services with Search
@@ -81,36 +83,38 @@ exports.myServices = asyncErrorHandler(async (req, res, next) => {
 
 // Create Service ---GURU
 exports.createService = asyncErrorHandler(async (req, res, next) => {
-  // let images = [];
-  // if (typeof req.body.images === "string") {
-  //     images.push(req.body.images);
-  // } else {
-  //     images = req.body.images;
-  // }
+  const file = req.files.image;
+  var fileName = file.name;
+  const imageFilePath = path.join(__dirname, fileName);
 
-  // const imagesLink = [];
+  await file.mv(imageFilePath, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+  });
 
-  // for (let i = 0; i < images.length; i++) {
-  //     const result = await cloudinary.v2.uploader.upload(images[i], {
-  //         folder: "services",
-  //     });
+  const myCloud = await cloudinary.v2.uploader.upload(imageFilePath, {
+    folder: "services",
+  });
 
-  //     imagesLink.push({
-  //         public_id: result.public_id,
-  //         url: result.secure_url,
-  //     });
-  // }
+  fs.unlink(__dirname + "/" + fileName, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log("Temporary file successfuly deleted");
+  });
 
-  // req.body.images = imagesLink;
   req.body.user = req.user.id;
 
-  let specs = [];
-  req.body.specifications.forEach((s) => {
-    specs.push(JSON.parse(s));
+  const service = await Service.create({
+    ...req.body,
+    category: [req.body.serviceType],
+    image: {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    },
   });
-  req.body.specifications = specs;
-
-  const service = await Service.create(req.body);
 
   res.status(201).json({
     success: true,

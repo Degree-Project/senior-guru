@@ -10,21 +10,6 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter service description"],
   },
-  highlights: [
-    {
-      type: String,
-    },
-  ],
-  specifications: [
-    {
-      title: {
-        type: String,
-      },
-      description: {
-        type: String,
-      },
-    },
-  ],
   city: {
     type: String,
     required: [true, "Please enter your city name"],
@@ -32,6 +17,7 @@ const serviceSchema = new mongoose.Schema({
   location: {
     type: {
       type: String,
+      default: "Point"
     },
     coordinates: [],
   },
@@ -39,16 +25,14 @@ const serviceSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please enter service cost"],
   },
-  images: [
-    {
-      public_id: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+  image: {
+    public_id: {
+      type: String,
     },
-  ],
+    url: {
+      type: String,
+    },
+  },
   category: [
     {
       type: String,
