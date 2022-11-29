@@ -18,7 +18,14 @@ function ServiceCard({
       <Card.Body className="card-body">
         <a href="#">
           <Card.Title className="card-title">{serviceName}</Card.Title>
-          <Card.Text>{serviceDescription}</Card.Text>
+          <Card.Text
+            style={{
+              height: "40px",
+              overflow: "hidden",
+            }}
+          >
+            {serviceDescription}
+          </Card.Text>
         </a>
         <a href="#">
           <Row className="mt-3">

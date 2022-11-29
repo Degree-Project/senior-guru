@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tabs, Box, Tab } from "@mui/material";
 import { TabPanel } from "./TabComponent/TabPanel";
 import Cards from "./TabComponent/Cards";
@@ -9,6 +9,7 @@ import AddCertificateModal from "./TabComponent/AddCertificateModal";
 import AddServiceModal from "./TabComponent/AddServiceModal";
 import axios from "axios";
 import ServiceCards from "./TabComponent/ServiceCards";
+import AuthContext from "../context/AuthContext";
 
 const Profile = () => {
   let history = useNavigate();
@@ -18,6 +19,27 @@ const Profile = () => {
   const [services, setServices] = useState();
   const [certificates, setCertificate] = useState();
   const [userDetails, setUserDetails] = useState([]);
+
+  const { locData } = useContext(AuthContext);
+  const [lat, setLat] = useState({
+    coordinates: {
+      latitude: "",
+      longitude: ""
+    }
+  });
+
+  const setData = () => {
+    setLat({
+      coordinates: {
+        latitude: locData.latitude,
+        longitude: locData.longitude
+      }
+    });
+  };
+
+  useEffect(() => {
+    setData();
+  }, [locData]);
 
   function a11yProps(index) {
     return {
@@ -228,6 +250,7 @@ const Profile = () => {
       </div>
       <AddServiceModal
         show={addServicesModalShow}
+        lat={lat}
         onHide={() => setAddServicesModalShow(false)}
       />
     </div>
