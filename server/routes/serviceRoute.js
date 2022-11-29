@@ -5,6 +5,7 @@ const {
   getServiceDetails,
   createService,
   deleteService,
+  myServices,
 } = require("../controllers/serviceController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 
@@ -19,6 +20,8 @@ router.route("/test-s").get((req, res) => {
 router.route("/services/all").post(getServices);
 
 router.route("/admin/service/new").post(isAuthenticatedUser, createService);
+router.route("/guru/service/all").get(isAuthenticatedUser, myServices);
+router.route("/guru/service/:id").delete(isAuthenticatedUser, deleteService);
 
 router.route("/service/:id").get(getServiceDetails);
 

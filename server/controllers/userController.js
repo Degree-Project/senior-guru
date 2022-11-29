@@ -4,6 +4,7 @@ const sendToken = require("../utils/sendToken");
 const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
 const path = require("path");
+const fs = require("fs");
 
 // Register User
 exports.registerUser = asyncErrorHandler(async (req, res, next) => {
@@ -20,8 +21,18 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
 
   const myCloud = await cloudinary.v2.uploader.upload(avatarFilePath, {
     folder: "avatars",
-    width: 150,
-    crop: "scale",
+    width: 200,
+    height: 200,
+    crop: "thumb",
+    gravity: "faces",
+  });
+
+  fs.unlink(__dirname + "/" + fileName, (err) => {
+    if (err) {
+      throw err;
+    }
+
+    console.log("Temporary file successfuly deleted");
   });
 
   const {

@@ -31,7 +31,11 @@ function ContainerExample() {
   const onSubmitLogin = () => {
     try {
       axios.post("/api/login", userLogin).then((res) => {
-        navigate("/profile");
+        if (res.data.user.role === "guru") {
+          navigate(`/profile`);
+        } else {
+          navigate("/services");
+        }
         toast.success("Logged In");
         getLoggedIn();
       });
@@ -80,6 +84,7 @@ function ContainerExample() {
                 type="submit"
                 value="Login"
                 className="login-btn px-3 py-2"
+                style={{ color: "white" }}
                 onClick={(e) => {
                   e.preventDefault();
                   onSubmitLogin();

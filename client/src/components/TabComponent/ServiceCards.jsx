@@ -5,10 +5,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-export default function Cards(props) {
+export default function ServiceCards(props) {
   return (
-    <Card sx={{ maxWidth: 345 }} variant="outlined" className="p-2 m-1">
-
+    <Card sx={{ maxWidth: 345 }} variant="outlined" className="mb-4 p-2 m-1">
       <CardActionArea>
         <CardMedia
           component="img"

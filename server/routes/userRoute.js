@@ -21,13 +21,13 @@ router.route("/login").post(loginUser);
 router.route("/logout").get(logoutUser);
 router.route("/loginStatus").get(isLoggedIn);
 
-// router.route('/me').get(isAuthenticatedUser, getUserDetails);
+router.route("/me").get(isAuthenticatedUser, getUserDetails);
 // router.route('/me/update').put(isAuthenticatedUser, updateProfile);
 
 // router.route("/admin/users").get(isAuthenticatedUser, authorizeRoles("user", "admin"), getAllUsers);
 // router.route("/admin/user/:id").get(isAuthenticatedUser, authorizeRoles("user", "admin"), getSingleUser);
 
-router.route("/me").get(getUserDetails);
+// router.route("/me").get(getUserDetails);
 router.route("/me/update").put(isAuthenticatedUser, updateProfile);
 
 router.route("/users").get(getAllUsers);

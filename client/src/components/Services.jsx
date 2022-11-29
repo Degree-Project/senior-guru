@@ -19,10 +19,13 @@ export default function Services() {
   useEffect(() => {
     setData();
   }, [locData]);
-
   return (
     <>
-      <NavBar />
+      <NavBar
+        userDetails={props.userDetails}
+        setIsOpen={props.setIsOpen}
+        isOpen={props.isOpen}
+      />
       <div className="row service-page-main-row">
         <div className="service-page-main-div">
           <div className="services-page">
@@ -75,8 +78,11 @@ export default function Services() {
             </div>
           </div>
         </div>
+        <LogoutModal isOpen={props.isOpen} setIsOpen={props.setIsOpen} />
       </div>
     </>
     // </div>
   );
-}
+};
+
+export default Services;

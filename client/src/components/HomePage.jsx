@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/HomePage.css";
 import NavBar from "./NavBar";
+import LogoutModal from "./Modals/LogoutModal";
 
 export default function HomePage(props) {
   return (
@@ -53,7 +54,13 @@ export default function HomePage(props) {
         src="/assets/images/girl.png"
         alt="Girl illustration"
       />
-      <NavBar userN={props.userN} />
+      <NavBar
+        userN={props.userN}
+        userDetails={props.userDetails}
+        isOpen={props.isOpen}
+        setIsOpen={props.setIsOpen}
+      />
+      <LogoutModal isOpen={props.isOpen} setIsOpen={props.setIsOpen} />
     </div>
     // </div>
   );

@@ -68,8 +68,7 @@ exports.getServiceDetails = asyncErrorHandler(async (req, res, next) => {
 
 //Get All services of Logged --GURU
 exports.myServices = asyncErrorHandler(async (req, res, next) => {
-  const services = await Services.find({ user: req.user._id });
-
+  const services = await Service.find({ user: req.user._id });
   if (!services) {
     return next(new ErrorHandler("Services Not Found", 404));
   }

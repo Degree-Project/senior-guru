@@ -102,9 +102,9 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="d-flex row w-100 m-0 p-0">
-      <div className="container-bg-white d-flex row justify-content-center col-8 h-100 m-0 p-0">
-        <div className="d-flex flex-column h-25 w-100 justify-content-center align-items-center">
+    <div className="d-flex row w-100 m-0 p-0 h-100">
+      <div className="container-bg-white d-flex row justify-content-center col h-100 m-0 p-0">
+        <div className="d-flex flex-column h-25 w-100 justify-content-center align-items-center mt-5">
           {step === 1 && <h2 className="signup-title">Your Details</h2>}
           {step === 1 && (
             <div className="d-flex row justify-content-center m-0 p-0">
@@ -128,9 +128,7 @@ const SignUpPage = () => {
           )} */}
         </div>
         <form
-          className={`d-flex row h-75 justify-content-between align-content-start flex-wrap m-0 px-5 ${
-            step === 2 ? "w-100" : " w-75"
-          }`}
+          className={`d-flex row h-75  justify-content-between align-content-start flex-wrap m-0 px-5 w-100`}
         >
           {step === 1 && (
             <>
@@ -222,37 +220,17 @@ const SignUpPage = () => {
               />
               <input
                 type="button"
-                className="col-3 btn btn-bg-FF9E67 my-3"
+                className="btn btn-bg-FF9E67 my-3"
                 value="Next"
+                style={{ width: "150px" }}
                 onClick={() => setStep(2)}
               />
             </>
           )}
           {step === 2 && (
             <>
-              <div className="profile-bg w-100 top-0">
+              <div className="w-100 d-flex justify-content-start position-relative">
                 <div className="profile-Pic-Container"></div>
-              </div>
-              <div className="w-100 d-flex justify-content-end">
-                <input
-                  type="file"
-                  name="banner"
-                  id="banner"
-                  className="d-none"
-                  onChange={handleAvatarChange}
-                />
-                <label
-                  for="avatar"
-                  className="form-input text-center form-control col-2 mt-4"
-                >
-                  Add Profile
-                  <i
-                    class="fa-solid fa-file-circle-plus ml-2"
-                    style={{ color: "black" }}
-                  ></i>
-                </label>
-              </div>
-              <div className="w-100 d-flex justify-content-start">
                 <input
                   type="file"
                   name="avatar"
@@ -262,7 +240,8 @@ const SignUpPage = () => {
                 />
                 <label
                   for="avatar"
-                  className="form-input text-center form-control col-2 mt-4"
+                  className="text-center form-input position-absolute w-25 p-2 mt-4"
+                  style={{ right: "20%", top: "30%" }}
                 >
                   Add Profile
                   <i
@@ -305,7 +284,7 @@ const SignUpPage = () => {
           )} */}
         </form>
       </div>
-      <div className="container-bg-FFCF25 p-5 col-4 vh-100"></div>
+      <div className="container-bg-FFCF25 p-5 col-4 d-lg-block d-none vh-100"></div>
     </div>
   );
 };
