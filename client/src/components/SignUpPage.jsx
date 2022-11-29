@@ -94,7 +94,11 @@ const SignUpPage = () => {
     try {
       axios.post("/api/register", formData).then((res) => {
         console.log("Registered Successfull");
-        navigate("/services");
+        if (user.role === "guru") {
+          navigate("/profile");
+        } else {
+          navigate("/services");
+        }
       });
     } catch (err) {
       console.log(err.response.data.errorMessage);
@@ -220,9 +224,8 @@ const SignUpPage = () => {
               />
               <input
                 type="button"
-                className="btn btn-bg-FF9E67 my-3"
+                className="btn col-3 btn-bg-FF9E67 my-3"
                 value="Next"
-                style={{ width: "150px" }}
                 onClick={() => setStep(2)}
               />
             </>

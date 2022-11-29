@@ -10,32 +10,25 @@ export default function AddBookingModal(props) {
       service: "",
       guru: "",
     },
-    contact: "",
     totalCost: "",
   });
 
-  const handleServiceName = (e) => {
-    setNewService({ ...newService, reservationItem: { name: e.target.value } });
-  };
-  const handleServiceDesc = (e) => {
+  const handleServiceContact = (e) => {
     setNewService({
       ...newService,
-      reservationItem: { service: props.service },
+      reservationItem: {
+        name: props.serviceDetails.name,
+        service: props.serviceDetails.id,
+        guru: props.serviceDetails.user,
+      },
+      totalCost: props.serviceDetails.price,
     });
   };
-  const handleServicePrice = (e) => {
-    setNewService({ ...newService, totalCost: e.target.value });
-  };
-  const handleServiceLocation = (e) => {
-    setNewService({ ...newService, contact: e.target.value });
-  };
 
-  const onSubmitServices = () => {
-    const formData = new FormData();
-
+  const onSubmitReservation = () => {
     try {
-      axios.post("/api/admin/service/new", formData).then((res) => {
-        toast.success("Services Added Successfully");
+      axios.post("/api/reservation/new", { ...newService }).then((res) => {
+        toast.success("Booked Successfully");
       });
     } catch (err) {
       toast.warning(err.response.data.errorMessage);
@@ -58,7 +51,8 @@ export default function AddBookingModal(props) {
               className="mb-3"
               type="text"
               placeholder="Enter Service Name"
-              onChange={handleServiceName}
+              disabled
+              value={props.serviceDetails.name}
             />
           </Col>
           <Col>
@@ -67,24 +61,16 @@ export default function AddBookingModal(props) {
               className="mb-3"
               type="text"
               placeholder="Enter Location"
-              onChange={handleServiceLocation}
+              onChange={handleServiceContact}
             />
           </Col>
         </Row>
-        <Form.Label>Description</Form.Label>
-        <Form.Control
-          className="mb-3"
-          as="textarea"
-          placeholder="Service Description"
-          onChange={handleServiceDesc}
-        />
         <Row>
           <Col>
             <Form.Label>Service Type</Form.Label>
             <Form.Select
               className="w-100 mb-3 p-2"
               aria-label="Default select example"
-              onChange={handleServiceCategory}
             >
               <option disabled selected>
                 Select Mode
@@ -100,8 +86,7 @@ export default function AddBookingModal(props) {
               type="text"
               placeholder="Enter Service Cost"
               disabled
-              value={props.cost}
-              onChange={handleServicePrice}
+              value={props.serviceDetails.price}
             />
           </Col>
         </Row>

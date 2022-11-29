@@ -14,7 +14,6 @@ exports.newReservation = asyncErrorHandler(async (req, res, next) => {
 
   const reservation = await Reservation.create({
     reservationItem,
-    paymentStatus,
     totalCost,
     user: req.user._id,
     contact: req.user.email,

@@ -6,12 +6,11 @@ import { Button, Modal, Form } from "react-bootstrap";
 export default function AddCertificateModal(props) {
   const [getCertificate, setGetCertificate] = useState({
     title: "",
-    files: "",
-    cretedAt: new Date(),
+    certificate: "",
   });
 
   const handleCertificate = (e) => {
-    setGetCertificate({ ...getCertificate, files: e.target.files[0] });
+    setGetCertificate({ ...getCertificate, certificate: e.target.files[0] });
   };
   const handleCertificateName = (e) => {
     setGetCertificate({ ...getCertificate, title: e.target.value });
@@ -20,11 +19,12 @@ export default function AddCertificateModal(props) {
   const onSubmitCertificate = () => {
     const formData = new FormData();
     formData.append("title", getCertificate.title);
-    formData.append("avatar", getCertificate.files);
-    formData.append("createdAt", getCertificate.cretedAt);
+    formData.append("certificate", getCertificate.certificate);
+    formData.append("createdAt", new Date());
     try {
       axios.post("/api/guru/certificate/new", formData).then((res) => {
         toast.success("Certificate Added Successfully");
+        props.getMyCertificates();
       });
     } catch (err) {
       toast.warning(err.response.data.errorMessage);

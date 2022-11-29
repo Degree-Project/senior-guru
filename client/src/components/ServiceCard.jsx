@@ -9,6 +9,9 @@ function ServiceCard({
   name,
   location,
   rating,
+  setAddServicesModalShow,
+  setValue,
+  value,
 }) {
   return (
     <Card className="m-1 service-card">
@@ -51,6 +54,17 @@ function ServiceCard({
             </Col>
           </Row>
         </a>
+        <Row>
+          <input
+            type="button"
+            className="form-control col-md-8 mt-3 ml-3 login-btn add-btn"
+            value="Book Session"
+            onClick={() => {
+              setAddServicesModalShow(true);
+              setValue(value + 1);
+            }}
+          />
+        </Row>
       </Card.Body>
     </Card>
   );

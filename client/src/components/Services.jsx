@@ -1,19 +1,27 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ServiceCard from "./ServiceCard";
 import NavBar from "./NavBar";
 import "../css/Services.css";
 import LogoutModal from "./Modals/LogoutModal";
-import AuthContext from "../context/AuthContext";
 import axios from "axios";
-import { toast } from "react-toastify";
+import AddBookingModal from "./TabComponent/AddBookingModal";
 
 const Services = (props) => {
-  const [type, setType] = useState(true);
+  // const [type, setType] = useState(true);
+  const [addServicesModalShow, setAddServicesModalShow] = useState(false);
   const [service, setService] = useState();
-  const { locData } = useContext(AuthContext);
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
+  const [value, setValue] = useState(2);
+
+  const [serviceDetails, setServiceDetails] = useState({
+    name: "",
+    id: "",
+    user: "",
+    price: "",
+  });
+  // const { locData } = useContext(AuthContext);
+  // const [lat, setLat] = useState(null);
+  // const [lng, setLng] = useState(null);
 
   // const setData = () => {
   //   setLat(locData.latitude);
@@ -36,6 +44,13 @@ const Services = (props) => {
         })
         .then((res) => {
           setService(res.data.services);
+          setServiceDetails({
+            ...serviceDetails,
+            name: res.data.services[value].name,
+            id: res.data.services[value]._id,
+            price: res.data.services[value].price,
+            user: res.data.services[value].user,
+          });
           console.log(res);
         });
     } catch (err) {
@@ -78,6 +93,9 @@ const Services = (props) => {
                       name="Livio Mascarenhas"
                       location="Majorda, Goa"
                       rating="4.5"
+                      setAddServicesModalShow={setAddServicesModalShow}
+                      setValue={setValue}
+                      value={value}
                     />
                   );
                 })}
@@ -85,6 +103,11 @@ const Services = (props) => {
           </div>
         </div>
         <LogoutModal isOpen={props.isOpen} setIsOpen={props.setIsOpen} />
+        <AddBookingModal
+          show={addServicesModalShow}
+          serviceDetails={serviceDetails}
+          onHide={() => setAddServicesModalShow(false)}
+        />
       </div>
     </>
     // </div>

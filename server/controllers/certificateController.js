@@ -47,7 +47,7 @@ exports.uploadCertificate = asyncErrorHandler(async (req, res, next) => {
   const certificate = await Certificate.create({
     title,
     user: req.user._id,
-    avatar: {
+    certificate: {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
     },

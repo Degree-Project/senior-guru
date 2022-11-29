@@ -17,6 +17,8 @@ const Profile = () => {
   const [addServicesModalShow, setAddServicesModalShow] = useState(false);
   const [services, setServices] = useState();
   const [certificates, setCertificate] = useState();
+  const [booking, setBooking] = useState();
+  const [bookingGuru, setBookingGuru] = useState();
   const [userDetails, setUserDetails] = useState([]);
 
   function a11yProps(index) {
@@ -38,6 +40,18 @@ const Profile = () => {
     });
   };
 
+  const getStudentBooking = () => {
+    axios.get("/api/reservations/me").then((res) => {
+      setBooking(res.data.reservations);
+    });
+  };
+
+  const getGuruBooking = () => {
+    axios.get("/api/guru/reservations/me").then((res) => {
+      setBookingGuru(res.data.reservations);
+    });
+  };
+
   const getUser = () => {
     axios.get("/api/me").then((res) => {
       setUserDetails(res.data.user);
@@ -46,11 +60,11 @@ const Profile = () => {
 
   useEffect(() => {
     getUser();
-    if (userDetails !== "") {
-      getServices();
-      getMyCertificates();
-    }
-  });
+    getServices();
+    getMyCertificates();
+    getStudentBooking();
+    getGuruBooking();
+  }, []);
 
   function handleChange(event, newValue) {
     setValue(newValue);
@@ -137,7 +151,7 @@ const Profile = () => {
             {userDetails.role === "guru" ? (
               <Tab label="Services" {...a11yProps(1)} />
             ) : (
-              <Tab label="Enrollment Course" {...a11yProps(0)} />
+              <Tab label="Enrollment Course" {...a11yProps(1)} />
             )}
             {userDetails.role === "guru" && (
               <Tab label="Bookings" {...a11yProps(2)} />
@@ -159,6 +173,7 @@ const Profile = () => {
                   <AddCertificateModal
                     show={addCertificateModalShow}
                     onHide={() => setAddCertificateModalShow(false)}
+                    getMyCertificates={getMyCertificates}
                   />
                 </div>
                 {certificates &&
@@ -170,57 +185,64 @@ const Profile = () => {
           ) : (
             <TabPanel value={value} index={0}>
               <div className="d-flex row justify-content-space-around pt-4 px-4">
-                <Cards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
-                <Cards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
-                <Cards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
+                <div className="d-flex w-100 align-items-center my-2">
+                  Student Email: {userDetails.email}
+                </div>
               </div>
             </TabPanel>
           )}
-          <TabPanel value={value} index={1}>
-            <div className="d-flex row justify-content-space-around pt-4 px-4">
-              <div className="w-100 d-flex position-relative">
-                <input
-                  style={{
-                    color: "var(--primary-text-color)",
-                  }}
-                  type="button"
-                  className="form-control col-md-3 mb-4 login-btn add-btn"
-                  value="Add Services"
-                  onClick={() => setAddServicesModalShow(true)}
-                />
+          {userDetails.role === "guru" ? (
+            <TabPanel value={value} index={1}>
+              <div className="d-flex row justify-content-space-around pt-4 px-4">
+                <div className="w-100 d-flex position-relative">
+                  <input
+                    style={{
+                      color: "var(--primary-text-color)",
+                    }}
+                    type="button"
+                    className="form-control col-md-3 mb-4 login-btn add-btn"
+                    value="Add Services"
+                    onClick={() => setAddServicesModalShow(true)}
+                  />
+                </div>
+                {services &&
+                  services.map((item) => {
+                    return (
+                      <ServiceCards
+                        head={item.name}
+                        content={item.description}
+                      />
+                    );
+                  })}
               </div>
-              {services &&
-                services.map((item) => {
-                  return (
-                    <ServiceCards head={item.name} content={item.description} />
-                  );
-                })}
-            </div>
-          </TabPanel>
+            </TabPanel>
+          ) : (
+            <TabPanel value={value} index={1}>
+              <div className="d-flex row justify-content-space-around pt-4 px-4">
+                {booking &&
+                  booking.map((item) => {
+                    return (
+                      <ServiceCards
+                        head={item.reservationItem.name}
+                        content={item.reservationItem.name}
+                      />
+                    );
+                  })}
+              </div>
+            </TabPanel>
+          )}
           {userDetails.role === "guru" && (
             <TabPanel value={value} index={2}>
               <div className="d-flex row justify-content-space-around pt-4 px-4">
-                <BookingCards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
-                <BookingCards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
-                <BookingCards
-                  head="PHD in Data Science"
-                  content="Well meaning and kindly. A benevolent smile"
-                />
+                {bookingGuru &&
+                  bookingGuru.map((item) => {
+                    return (
+                      <ServiceCards
+                        head={item.reservationItem.name}
+                        content={item.reservationItem.name}
+                      />
+                    );
+                  })}
               </div>
             </TabPanel>
           )}
