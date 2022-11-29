@@ -9,7 +9,6 @@ import Service from "./components/Service";
 import Profile from "./components/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useGeolocated } from "react-geolocated";
 function App() {
   return (
     <AuthContextProvider>

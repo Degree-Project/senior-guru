@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Tabs, Box, Tab, makeStyles } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Tabs, Box, Tab } from "@mui/material";
 import { TabPanel } from "./TabComponent/TabPanel";
 import Cards from "./TabComponent/Cards";
 import "../css/Profile.css";
@@ -7,12 +7,17 @@ import { useNavigate } from "react-router-dom";
 import BookingCards from "./TabComponent/BookingCards";
 import AddCertificateModal from "./TabComponent/AddCertificateModal";
 import AddServiceModal from "./TabComponent/AddServiceModal";
+import axios from "axios";
+import ServiceCards from "./TabComponent/ServiceCards";
 
 const Profile = () => {
   let history = useNavigate();
   const [value, setValue] = useState(0);
   const [addCertificateModalShow, setAddCertificateModalShow] = useState(false);
   const [addServicesModalShow, setAddServicesModalShow] = useState(false);
+  const [services, setServices] = useState();
+  const [certificates, setCertificate] = useState();
+  const [userDetails, setUserDetails] = useState([]);
 
   function a11yProps(index) {
     return {
@@ -21,9 +26,36 @@ const Profile = () => {
     };
   }
 
+  const getServices = () => {
+    axios.get("/api/guru/service/all").then((res) => {
+      setServices(res.data.services);
+    });
+  };
+
+  const getMyCertificates = () => {
+    axios.get("/api/guru/certificate/all").then((res) => {
+      setCertificate(res.data.certificates);
+    });
+  };
+
+  const getUser = () => {
+    axios.get("/api/me").then((res) => {
+      setUserDetails(res.data.user);
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+    if (userDetails !== "") {
+      getServices();
+      getMyCertificates();
+    }
+  });
+
   function handleChange(event, newValue) {
     setValue(newValue);
   }
+
   return (
     <div className="m-0 p-0">
       <div className="m-0 p-0">
@@ -37,7 +69,7 @@ const Profile = () => {
         <div
           className="color-FF9E67 d-flex col-1 align-items-center position-relative pt-1 px-3 fs-32"
           style={{ zIndex: "10", cursor: "pointer" }}
-          onClick={() => history("/services")}
+          onClick={() => history(-1)}
         >
           <img
             src="/assets/images/profile/arrow.png"
@@ -57,21 +89,21 @@ const Profile = () => {
             zIndex: "10",
             borderRadius: "50%",
             border: "20px solid #FFCF25",
+            objectFit: "cover",
           }}
-          className="col-"
           alt=""
         />
         <div className="col pt-5">
           <div className="d-flex flex-column">
             <div className="d-flex row justify-content-start align-items-end p-0 m-0">
-              <h1 className="p-0 m-0">Guru Name</h1>
+              <h1 className="p-0 m-0">{`${userDetails.firstName} ${userDetails.lastName}`}</h1>
               <p className="p-0 pl-3 pb-1 m-0">
                 <i class="fa-solid fa-star px-1" style={{ color: "gold" }} />{" "}
                 4.5
               </p>
             </div>
             <p className="p-0 pl-1 m-0" style={{ color: "#7b7b7b" }}>
-              Location <i class="fas fa-location-dot pl-2" />
+              {userDetails.location} <i class="fas fa-location-dot pl-2" />
             </p>
           </div>
           <textarea
@@ -81,10 +113,12 @@ const Profile = () => {
             rows="4"
             placeholder="Bio"
             style={{ resize: "none" }}
+            disabled
           />
           {/* Guru Name */}
         </div>
       </div>
+
       {/* Tabs */}
       <div className="w-100 px-4 p-3 m-0">
         <Box sx={{ width: "100%" }}>
@@ -93,50 +127,66 @@ const Profile = () => {
             onChange={handleChange}
             // textColor="secondary"
             // indicatorColor="secondary"
-            // className={classes.tabs}
             aria-label="secondary tabs example"
           >
-            <Tab className="tab" label="Certificates" {...a11yProps(0)} />
-            <Tab className="tab" label="Services" {...a11yProps(1)} />
-            <Tab className="tab" label="Bookings" {...a11yProps(2)} />
+            {userDetails.role === "guru" ? (
+              <Tab label="Certificates" {...a11yProps(0)} />
+            ) : (
+              <Tab label="Contacts" {...a11yProps(0)} />
+            )}
+            {userDetails.role === "guru" ? (
+              <Tab label="Services" {...a11yProps(1)} />
+            ) : (
+              <Tab label="Enrollment Course" {...a11yProps(0)} />
+            )}
+            {userDetails.role === "guru" && (
+              <Tab label="Bookings" {...a11yProps(2)} />
+            )}
           </Tabs>
-          <TabPanel value={value} index={0}>
-            <div className="d-flex row justify-content-space-around pt-4 px-4">
-              <div className="w-100 d-flex position-relative">
-                <input
-                  style={{
-                    color: "var(--primary-text-color)",
-                  }}
-                  type="button"
-                  className="form-control col-md-3 mb-4 login-btn add-btn"
-                  value="Add Certificates"
-                  onClick={() => setAddCertificateModalShow(true)}
+          {userDetails.role === "guru" ? (
+            <TabPanel value={value} index={0}>
+              <div className="d-flex row justify-content-space-around pt-4 px-4">
+                <div className="w-100 d-flex position-relative">
+                  <input
+                    style={{
+                      color: "var(--primary-text-color)",
+                    }}
+                    type="button"
+                    className="form-control col-md-3 mb-4 login-btn add-btn"
+                    value="Add Certificates"
+                    onClick={() => setAddCertificateModalShow(true)}
+                  />
+                  <AddCertificateModal
+                    show={addCertificateModalShow}
+                    onHide={() => setAddCertificateModalShow(false)}
+                  />
+                </div>
+                {certificates &&
+                  certificates.map((item) => {
+                    return <Cards head={item.title} />;
+                  })}
+              </div>
+            </TabPanel>
+          ) : (
+            <TabPanel value={value} index={0}>
+              <div className="d-flex row justify-content-space-around pt-4 px-4">
+                <Cards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
                 />
-                <AddCertificateModal
-                  show={addCertificateModalShow}
-                  onHide={() => setAddCertificateModalShow(false)}
+                <Cards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+                <Cards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
                 />
               </div>
-              <Cards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <Cards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <Cards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <Cards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-            </div>
-          </TabPanel>
+            </TabPanel>
+          )}
           <TabPanel value={value} index={1}>
-            <div className="px-4 w-100 mt-4">
+            <div className="d-flex row justify-content-space-around pt-4 px-4">
               <div className="w-100 d-flex position-relative">
                 <input
                   style={{
@@ -148,28 +198,32 @@ const Profile = () => {
                   onClick={() => setAddServicesModalShow(true)}
                 />
               </div>
+              {services &&
+                services.map((item) => {
+                  return (
+                    <ServiceCards head={item.name} content={item.description} />
+                  );
+                })}
             </div>
           </TabPanel>
-          <TabPanel value={value} index={2}>
-            <div className="d-flex row justify-content-evenly pt-4 px-4">
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-              <BookingCards
-                head="PHD in Data Science"
-                content="Well meaning and kindly. A benevolent smile"
-              />
-            </div>
-          </TabPanel>
+          {userDetails.role === "guru" && (
+            <TabPanel value={value} index={2}>
+              <div className="d-flex row justify-content-space-around pt-4 px-4">
+                <BookingCards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+                <BookingCards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+                <BookingCards
+                  head="PHD in Data Science"
+                  content="Well meaning and kindly. A benevolent smile"
+                />
+              </div>
+            </TabPanel>
+          )}
         </Box>
       </div>
       <AddServiceModal
