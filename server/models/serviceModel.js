@@ -27,7 +27,7 @@ const serviceSchema = new mongoose.Schema({
   ],
   city: {
     type: String,
-    required: [true, "Please enter your city name"],
+    // required: [true, "Please enter your city name"],
   },
   location: {
     type: {

@@ -251,6 +251,7 @@ const Profile = () => {
       <AddServiceModal
         show={addServicesModalShow}
         onHide={() => setAddServicesModalShow(false)}
+        getServices={getServices}
       />
     </div>
   );

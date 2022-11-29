@@ -27,7 +27,10 @@ export default function AddServiceModal(props) {
     setNewService({ ...newService, price: e.target.value });
   };
   const handleServiceLocation = (e) => {
-    setNewService({ ...newService, location: props.lat });
+    setNewService({
+      ...newService,
+      location: { coordinates: { latitude: 18, longitude: 73 } },
+    });
   };
   const handleServiceCategory = (e) => {
     setNewService({ ...newService, category: e.target.value });
@@ -44,6 +47,7 @@ export default function AddServiceModal(props) {
     try {
       axios.post("/api/admin/service/new", formData).then((res) => {
         toast.success("Services Added Successfully");
+        props.getServices();
       });
     } catch (err) {
       toast.warning(err.response.data.errorMessage);
@@ -92,6 +96,7 @@ export default function AddServiceModal(props) {
             <Form.Select
               className="w-100 mb-3 p-2"
               aria-label="Default select example"
+              value=""
               onChange={handleServiceCategory}
             >
               <option disabled selected>

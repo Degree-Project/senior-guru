@@ -104,11 +104,11 @@ exports.createService = asyncErrorHandler(async (req, res, next) => {
   // req.body.images = imagesLink;
   req.body.user = req.user.id;
 
-  let specs = [];
-  req.body.specifications.forEach((s) => {
-    specs.push(JSON.parse(s));
-  });
-  req.body.specifications = specs;
+  // let specs = [];
+  // req.body.specifications.forEach((s) => {
+  //   specs.push(JSON.parse(s));
+  // });
+  // req.body.specifications = specs;
 
   const service = await Service.create(req.body);
 

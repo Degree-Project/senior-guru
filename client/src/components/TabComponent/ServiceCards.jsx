@@ -19,7 +19,14 @@ export default function ServiceCards(props) {
           <Typography gutterBottom variant="h5" component="div">
             {props.head}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style={{
+              height: "40px",
+              overflow: "hidden",
+            }}
+          >
             {props.content}
           </Typography>
         </CardContent>
