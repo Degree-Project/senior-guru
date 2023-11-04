@@ -11,7 +11,7 @@ const Services = (props) => {
   // const [type, setType] = useState(true);
   const [addServicesModalShow, setAddServicesModalShow] = useState(false);
   const [service, setService] = useState();
-  const [value, setValue] = useState(2);
+  const [value, setValue] = useState();
 
   const [serviceDetails, setServiceDetails] = useState({
     name: "",
@@ -95,7 +95,7 @@ const Services = (props) => {
                       rating="4.5"
                       setAddServicesModalShow={setAddServicesModalShow}
                       setValue={setValue}
-                      value={value}
+                      service={service}
                     />
                   );
                 })}

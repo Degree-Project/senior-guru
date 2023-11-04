@@ -11,7 +11,7 @@ function ServiceCard({
   rating,
   setAddServicesModalShow,
   setValue,
-  value,
+  service,
 }) {
   return (
     <Card className="m-1 service-card">
@@ -61,7 +61,7 @@ function ServiceCard({
             value="Book Session"
             onClick={() => {
               setAddServicesModalShow(true);
-              setValue(value + 1);
+              setValue(service.indexOf(name));
             }}
           />
         </Row>

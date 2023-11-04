@@ -59,17 +59,31 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getUser();
-    getServices();
-    getMyCertificates();
-    getStudentBooking();
-    getGuruBooking();
+    const allService = async () => {
+      await getServices();
+    };
+    const getLoggedUser = async () => {
+      await getUser();
+    };
+    const myCertificates = async () => {
+      await getMyCertificates();
+    };
+    const studentBooking = async () => {
+      await getStudentBooking();
+    };
+    const guruBooking = async () => {
+      await getGuruBooking();
+    };
+    allService();
+    getLoggedUser();
+    myCertificates();
+    studentBooking();
+    guruBooking();
   }, []);
 
   function handleChange(event, newValue) {
     setValue(newValue);
   }
-
   return (
     <div className="m-0 p-0">
       <div className="m-0 p-0">
@@ -96,7 +110,7 @@ const Profile = () => {
       </div>
       <div className="d-flex px-5 row m-0 p-0" style={{ zIndex: "10" }}>
         <img
-          src="/assets/images/profile/guru.png"
+          src="https://res.cloudinary.com/descmh99p/image/upload/v1669492878/avatars/w9n1pssppdbympsxozzm.jpg"
           height={230}
           width={230}
           style={{

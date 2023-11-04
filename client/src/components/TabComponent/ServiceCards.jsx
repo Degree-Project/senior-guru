@@ -13,7 +13,7 @@ export default function ServiceCards(props) {
           component="img"
           height="140"
           image="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20211015173104/Top-7-Data-Science-Certifications-That-You-Can-Consider.png"
-          alt="green iguana"
+          alt="Service Img"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
